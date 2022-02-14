@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace api_perfiltic.Models
 {
-    public class Category
-    {        
+    public class CategoryRequest
+    {
         public string name { get; set; }
-        
     }
 }

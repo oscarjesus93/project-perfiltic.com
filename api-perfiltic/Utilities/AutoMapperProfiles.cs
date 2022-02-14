@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api_perfiltic.Models;
+using api_perfiltic.Entities;
 
 namespace api_perfiltic.Utilities
 {
@@ -10,7 +12,10 @@ namespace api_perfiltic.Utilities
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Entities.Category, Models.Category>()
+            CreateMap<Category, CategoryRequest>()
+                .ReverseMap();
+
+            CreateMap<CategoryRequest, Category>()
                 .ReverseMap();
         }
     }
