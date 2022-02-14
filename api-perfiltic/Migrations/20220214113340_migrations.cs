@@ -2,7 +2,7 @@
 
 namespace api_perfiltic.Migrations
 {
-    public partial class dbperfiltic : Migration
+    public partial class migrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,7 +58,6 @@ namespace api_perfiltic.Migrations
                     id_subcategory = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    photo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     id_category = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

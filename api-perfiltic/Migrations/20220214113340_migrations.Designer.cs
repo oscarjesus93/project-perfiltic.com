@@ -9,8 +9,8 @@ using api_perfiltic.Utilities;
 namespace api_perfiltic.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220213180536_db-perfiltic")]
-    partial class dbperfiltic
+    [Migration("20220214113340_migrations")]
+    partial class migrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,11 +107,6 @@ namespace api_perfiltic.Migrations
 
                     b.Property<int>("id_category")
                         .HasColumnType("int");
-
-                    b.Property<string>("photo")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("id_subcategory");
 

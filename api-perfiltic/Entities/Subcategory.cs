@@ -15,10 +15,6 @@ namespace api_perfiltic.Entities
         [Required(ErrorMessage = "The description field is required.")]
         public string description { get; set; }
 
-        [StringLength(50)]
-        [Required(ErrorMessage = "The photo field is required.")]
-        public string photo { get; set; }
-
         [Required(ErrorMessage = "you must select a category")]
         public int id_category { get; set; }
     }

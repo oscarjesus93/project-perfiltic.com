@@ -106,11 +106,6 @@ namespace api_perfiltic.Migrations
                     b.Property<int>("id_category")
                         .HasColumnType("int");
 
-                    b.Property<string>("photo")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.HasKey("id_subcategory");
 
                     b.ToTable("pt_subcategory");

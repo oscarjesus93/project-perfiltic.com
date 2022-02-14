@@ -17,6 +17,13 @@ namespace api_perfiltic.Utilities
 
             CreateMap<CategoryRequest, Category>()
                 .ReverseMap();
+
+            CreateMap<Subcategory, SubCategoryRequest>()
+                .ReverseMap();
+
+            CreateMap<SubCategoryRequest, Subcategory>()
+                .ReverseMap();
+
         }
     }
 }
