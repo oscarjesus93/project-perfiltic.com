@@ -2,6 +2,7 @@
 using api_perfiltic.Utilities;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 namespace api_perfiltic.Controllers
 {    
     [ApiController]
+    [Authorize]
     public class CategoriesController : ControllerBase
     {
 

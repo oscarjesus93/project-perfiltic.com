@@ -65,3 +65,5 @@ C:\Users\oscar\source\repos\oscarjesus93\project-perfiltic.com\api-perfiltic\bin
 C:\Users\oscar\source\repos\oscarjesus93\project-perfiltic.com\api-perfiltic\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
 C:\Users\oscar\source\repos\oscarjesus93\project-perfiltic.com\api-perfiltic\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 C:\Users\oscar\source\repos\oscarjesus93\project-perfiltic.com\api-perfiltic\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\oscar\source\repos\oscarjesus93\project-perfiltic.com\api-perfiltic\bin\Debug\net5.0\JWT.dll
+C:\Users\oscar\source\repos\oscarjesus93\project-perfiltic.com\api-perfiltic\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
