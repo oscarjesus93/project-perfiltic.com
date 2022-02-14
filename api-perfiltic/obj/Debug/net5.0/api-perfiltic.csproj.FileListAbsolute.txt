@@ -66,3 +66,4 @@ C:\Users\oscar\source\repos\oscarjesus93\project-perfiltic.com\api-perfiltic\obj
 C:\Users\oscar\source\repos\oscarjesus93\project-perfiltic.com\api-perfiltic\obj\Debug\net5.0\ref\api-perfiltic.dll
 C:\Users\oscar\source\repos\oscarjesus93\project-perfiltic.com\api-perfiltic\obj\Debug\net5.0\api-perfiltic.pdb
 C:\Users\oscar\source\repos\oscarjesus93\project-perfiltic.com\api-perfiltic\obj\Debug\net5.0\api-perfiltic.genruntimeconfig.cache
+C:\Users\oscar\source\repos\oscarjesus93\project-perfiltic.com\api-perfiltic\obj\Debug\net5.0\api-perfiltic.csproj.AssemblyReference.cache

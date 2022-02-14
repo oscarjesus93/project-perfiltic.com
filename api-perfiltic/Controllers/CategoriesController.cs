@@ -12,8 +12,9 @@ using System.Threading.Tasks;
 using api_perfiltic.Models;
 
 namespace api_perfiltic.Controllers
-{    
+{
     [ApiController]
+    [Route("api/[controller]")]
     [Authorize]
     public class CategoriesController : ControllerBase
     {
@@ -27,26 +28,45 @@ namespace api_perfiltic.Controllers
         }
 
         [HttpGet]
-        [Route("api/categories/get")]
+        //[Route("api/categories/get")]
         public async Task<ActionResult<List<Entities.Category>>> Get()
         {
             return await applicationDbContext.pt_category.ToListAsync();
-        } 
-        
+        }
+
         [HttpGet("{id}")]
-        [Route("api/GetId")]
+        //[Route("api/GetId")]
         public async Task<ActionResult<Entities.Category>> GetId(int id)
         {
             return await applicationDbContext.pt_category.FirstOrDefaultAsync(c => c.id_category == id);
         }
 
         [HttpPost]
-        [Route("api/category/save")]
+        //[Route("api/category/save")]
         public async Task<ActionResult<Entities.Category>> Post(CategoryRequest request)
         {
             var category = mapper.Map<Entities.Category>(request);
             applicationDbContext.Add(category);
-            await applicationDbContext.SaveChangesAsync();            
+            await applicationDbContext.SaveChangesAsync();
+
+            return category;
+        }
+
+        [HttpPut("{id}")]
+        public async Task< ActionResult<Entities.Category> > Put(int id, [FromBody] CategoryRequest request)
+        {
+            var category = await applicationDbContext.pt_category.FirstOrDefaultAsync(c => c.id_category == id);
+            
+            if(category == null)
+            {
+                return NotFound();
+            }
+
+            mapper.Map(request, category);
+
+            applicationDbContext.Entry(category).State = EntityState.Modified;
+
+            await applicationDbContext.SaveChangesAsync();
 
             return category;
         }
