@@ -2,6 +2,7 @@
 using api_perfiltic.Models;
 using api_perfiltic.Utilities;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace api_perfiltic.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SubCategoryController : ControllerBase
     {
         private readonly ApplicationDbContext applicationDbContext;
