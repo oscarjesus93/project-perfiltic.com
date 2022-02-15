@@ -1,6 +1,7 @@
 ﻿using api_perfiltic.Utilities;
 using api_perfiltic.Entities;
 using api_perfiltic.Models;
+using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ namespace api_perfiltic.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly ApplicationDbContext applicationDbContext;
