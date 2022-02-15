@@ -15,7 +15,7 @@ namespace api_perfiltic.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    
     public class ProductController : ControllerBase
     {
         private readonly ApplicationDbContext applicationDbContext;
@@ -72,8 +72,7 @@ namespace api_perfiltic.Controllers
         public async Task< ActionResult<List<ProductResponse>> > Get()
         {
             try
-            {
-                List<ProductResponse> response = new List<Models.ProductResponse>();
+            {                
                 var products = await applicationDbContext.pt_products.ToListAsync();
 
                 return products.Select(p => new ProductResponse
@@ -94,6 +93,34 @@ namespace api_perfiltic.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        [Route("searach")]
+        public async Task< ActionResult<List<ProductResponse>> > GetForCategry([FromQuery] ProductSubCategoryRequest productRequest)
+        {
+            try
+            {
+                List<ProductResponse> productResponse = new List<ProductResponse>();
+                var products = await applicationDbContext.pt_products.Where(p => p.id_subcategory == productRequest.id_subcategory).ToListAsync();
+
+                return products.Select(p => new ProductResponse
+                {
+                    id_product = p.id_product,
+                    name = p.name,
+                    description = p.description,
+                    price = p.price,
+                    weight = p.weight,
+                    subCategory = this.findSubCategory(productRequest.id_subcategory),
+                    currency = p.currency
+                }).ToList();                
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
+
+
 
         protected ProductResponse ProductResponse(Product product)
         {
