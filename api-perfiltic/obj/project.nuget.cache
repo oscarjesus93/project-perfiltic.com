@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DeSzQRv1rOSLaK3QukUZyeMAKhdBmKxAlpXF5MLH1BCSXsHMvS3g+UwasYZ5wWafW8Xtd5zbIhwwA9vuo8O2OA==",
+  "dgSpecHash": "nKvxI8PJCuI62F3QvadNSA315t3zZPlX+1gjBEqWLOY5z+6IlcmfvbpVcQNXMtKtjpkV9jPEB6MqJg5/95CP5w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\oscar\\source\\repos\\oscarjesus93\\project-perfiltic.com\\api-perfiltic\\api-perfiltic.csproj",
+  "projectFilePath": "C:\\Users\\oscar\\Documents\\pruebaTic.Com\\project-perfiltic.com\\api-perfiltic\\api-perfiltic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\oscar\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\oscar\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",

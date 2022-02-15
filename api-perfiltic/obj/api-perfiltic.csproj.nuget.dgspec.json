@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\oscar\\source\\repos\\oscarjesus93\\project-perfiltic.com\\api-perfiltic\\api-perfiltic.csproj": {}
+    "C:\\Users\\oscar\\Documents\\pruebaTic.Com\\project-perfiltic.com\\api-perfiltic\\api-perfiltic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\oscar\\source\\repos\\oscarjesus93\\project-perfiltic.com\\api-perfiltic\\api-perfiltic.csproj": {
+    "C:\\Users\\oscar\\Documents\\pruebaTic.Com\\project-perfiltic.com\\api-perfiltic\\api-perfiltic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oscar\\source\\repos\\oscarjesus93\\project-perfiltic.com\\api-perfiltic\\api-perfiltic.csproj",
+        "projectUniqueName": "C:\\Users\\oscar\\Documents\\pruebaTic.Com\\project-perfiltic.com\\api-perfiltic\\api-perfiltic.csproj",
         "projectName": "api-perfiltic",
-        "projectPath": "C:\\Users\\oscar\\source\\repos\\oscarjesus93\\project-perfiltic.com\\api-perfiltic\\api-perfiltic.csproj",
+        "projectPath": "C:\\Users\\oscar\\Documents\\pruebaTic.Com\\project-perfiltic.com\\api-perfiltic\\api-perfiltic.csproj",
         "packagesPath": "C:\\Users\\oscar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oscar\\source\\repos\\oscarjesus93\\project-perfiltic.com\\api-perfiltic\\obj\\",
+        "outputPath": "C:\\Users\\oscar\\Documents\\pruebaTic.Com\\project-perfiltic.com\\api-perfiltic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\oscar\\AppData\\Roaming\\NuGet\\NuGet.Config",
