@@ -9,7 +9,7 @@ using api_perfiltic.Utilities;
 namespace api_perfiltic.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220214113340_migrations")]
+    [Migration("20220215015238_migrations")]
     partial class migrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
