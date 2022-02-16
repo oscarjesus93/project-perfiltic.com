@@ -15,7 +15,7 @@ namespace api_perfiltic.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class SubCategoryController : ControllerBase
     {
         private readonly ApplicationDbContext applicationDbContext;
@@ -28,44 +28,127 @@ namespace api_perfiltic.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Subcategory>>> Get()
+        public async Task<ActionResult<List<SubCategoryResponse>>> Get()
         {
-            return await applicationDbContext.pt_subcategory.ToListAsync();
+            try
+            {
+                List<SubCategoryResponse> subCategoryResponses = new List<SubCategoryResponse>();
+                var listSubCategory = await applicationDbContext.pt_subcategory.ToListAsync();
+
+                subCategoryResponses = mapper.Map<List<SubCategoryResponse>>(listSubCategory.Select(sb => new SubCategoryResponse
+                {
+                    id_subcategory = sb.id_subcategory,
+                    description = sb.description,
+                    category = this.findCategory(sb.id_category)
+                }).ToList());
+
+                if(subCategoryResponses.Count == 0)
+                {
+                    return NotFound(new { message = "No tiene categorias registradas" });
+                } else
+                {
+                    return Ok(subCategoryResponses);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message.ToString());
+                throw;
+            }
+            //return await applicationDbContext.pt_subcategory.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Subcategory>> Get(int id)
+        public async Task<ActionResult<SubCategoryResponse>> Get(int id)
         {
-            return await applicationDbContext.pt_subcategory.FirstOrDefaultAsync(sc => sc.id_subcategory == id);
+            try
+            {
+                SubCategoryResponse subCategoryResponse = new SubCategoryResponse();
+                var subCategory = await applicationDbContext.pt_subcategory.FirstOrDefaultAsync(sc => sc.id_subcategory == id);
+
+                subCategoryResponse = mapper.Map<SubCategoryResponse>(subCategory);
+
+                if(subCategoryResponse == null)
+                {
+                    return NotFound(new { message = "Sub categoria no registrada"  });
+                } else
+                {
+                    subCategoryResponse.category = this.findCategory(subCategory.id_category);
+                    return Ok(subCategoryResponse);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message.ToString());
+                throw;
+            }
+            
         }
 
         [HttpPost]
-        public async Task<ActionResult<Subcategory>> Post([FromBody] SubCategoryRequest request)
+        public async Task<ActionResult<SubCategoryResponse>> Post([FromBody] SubCategoryRequest request)
         {
-            var subCategory = mapper.Map<Subcategory>(request);
-            applicationDbContext.pt_subcategory.Add(subCategory);
-            await applicationDbContext.SaveChangesAsync();
+            try
+            {
+                SubCategoryResponse subCategoryResponse = new SubCategoryResponse();
+                var subCategory = mapper.Map<Subcategory>(request);
+                applicationDbContext.pt_subcategory.Add(subCategory);                
 
-            return subCategory;
+                await applicationDbContext.SaveChangesAsync();
+
+                var categorySave = await applicationDbContext.pt_subcategory.OrderByDescending(sb => sb.id_subcategory).Take(1).FirstOrDefaultAsync();
+
+                subCategoryResponse = mapper.Map<SubCategoryResponse>(categorySave);
+                subCategoryResponse.category = this.findCategory(request.id_category);
+
+                return Ok(subCategoryResponse);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message.ToString());
+                throw;
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Subcategory>> Put(int id, [FromBody] SubCategoryRequest request)
         {
-            var subCategory = await applicationDbContext.pt_subcategory.FirstOrDefaultAsync(c => c.id_subcategory == id);
-
-            if (subCategory == null)
+            try
             {
-                return NotFound();
+                var subCategory = await applicationDbContext.pt_subcategory.FirstOrDefaultAsync(c => c.id_subcategory == id);
+
+                if (subCategory == null)
+                {
+                    return NotFound();
+                }
+
+                mapper.Map(request, subCategory);
+
+                applicationDbContext.Entry(subCategory).State = EntityState.Modified;
+
+                await applicationDbContext.SaveChangesAsync();
+
+                return subCategory; 
             }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message.ToString());
+                throw;
+            }
+        }
 
-            mapper.Map(request, subCategory);
+        protected CategoryResponse findCategory(int idCategory)
+        {
+            CategoryResponse categoryResponse = new CategoryResponse();
 
-            applicationDbContext.Entry(subCategory).State = EntityState.Modified;
+            var category = applicationDbContext.pt_category.Find(idCategory);
 
-            await applicationDbContext.SaveChangesAsync();
+            categoryResponse = mapper.Map<CategoryResponse>(category);
 
-            return subCategory;
+
+            return categoryResponse;
         }
 
     }

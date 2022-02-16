@@ -15,7 +15,8 @@ namespace api_perfiltic.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
+    [Authorize]
+
     public class ProductController : ControllerBase
     {
         private readonly ApplicationDbContext applicationDbContext;
@@ -72,10 +73,11 @@ namespace api_perfiltic.Controllers
         public async Task< ActionResult<List<ProductResponse>> > Get()
         {
             try
-            {                
+            {
+                List<ProductResponse> productResponses = new List<ProductResponse>();
                 var products = await applicationDbContext.pt_products.ToListAsync();
 
-                return products.Select(p => new ProductResponse
+                productResponses = mapper.Map<List<ProductResponse>>( products.Select(p => new ProductResponse
                 {
                     id_product = p.id_product,
                     name = p.name,
@@ -84,12 +86,19 @@ namespace api_perfiltic.Controllers
                     weight = p.weight,
                     subCategory = this.findSubCategory(p.id_subcategory),
                     currency = p.currency
-                }).ToList();
+                }).ToList());
+
+                if(productResponses.Count == 0)
+                {
+                    return NotFound(new { message = "No tiene productos registrados" });
+                } else
+                {
+                    return Ok(productResponses);
+                }
             }
             catch (Exception ex)
             {
-                string e = ex.Message.ToString();
-                return NotFound();
+                return StatusCode(500, ex.Message.ToString());
                 throw;
             }
         }
@@ -103,7 +112,7 @@ namespace api_perfiltic.Controllers
                 List<ProductResponse> productResponse = new List<ProductResponse>();
                 var products = await applicationDbContext.pt_products.Where(p => p.id_subcategory == productRequest.id_subcategory).ToListAsync();
 
-                return products.Select(p => new ProductResponse
+                productResponse = mapper.Map<List<ProductResponse>>(products.Select(p => new ProductResponse
                 {
                     id_product = p.id_product,
                     name = p.name,
@@ -112,11 +121,21 @@ namespace api_perfiltic.Controllers
                     weight = p.weight,
                     subCategory = this.findSubCategory(productRequest.id_subcategory),
                     currency = p.currency
-                }).ToList();                
+                }).ToList());
+
+                if (productResponse.Count == 0)
+                {
+                    return NotFound(new { message = "No tiene productos registrados" });
+                }
+                else
+                {
+                    return Ok(productResponse);
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(500, ex.Message.ToString());
+                throw;
             }
         }
 

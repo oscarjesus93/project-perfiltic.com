@@ -14,7 +14,8 @@ using api_perfiltic.Models;
 namespace api_perfiltic.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]    
+    [Route("api/[controller]")]
+    [Authorize]
     public class CategoriesController : ControllerBase
     {
 

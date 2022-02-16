@@ -135,3 +135,4 @@ C:\Users\oscar\Documents\pruebaTic.Com\project-perfiltic.com\api-perfiltic\obj\D
 C:\Users\oscar\Documents\pruebaTic.Com\project-perfiltic.com\api-perfiltic\obj\Debug\net5.0\ref\api-perfiltic.dll
 C:\Users\oscar\Documents\pruebaTic.Com\project-perfiltic.com\api-perfiltic\obj\Debug\net5.0\api-perfiltic.pdb
 C:\Users\oscar\Documents\pruebaTic.Com\project-perfiltic.com\api-perfiltic\obj\Debug\net5.0\api-perfiltic.genruntimeconfig.cache
+C:\Users\oscar\Documents\pruebaTic.Com\project-perfiltic.com\api-perfiltic\obj\Debug\net5.0\api-perfiltic.csproj.AssemblyReference.cache
