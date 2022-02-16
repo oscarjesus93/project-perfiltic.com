@@ -28,22 +28,32 @@ namespace api_perfiltic.Controllers
         [Route("api/auth")]
         public async Task< ActionResult<Auth.Response> > auth ([FromBody] Auth.Request request)
         {
+            Auth.Response response = new Auth.Response();
+            response.mensaje = "";
             try
             {
-                Auth.Response response = new Auth.Response();
+                if(request.email == "" || request.password == "")
+                {
+                    response.mensaje = "El email y password son obligatorios";
+                    response.token = "";
+                    return Ok(response);
+                }
 
                 //BUSCAMOS LOS DATOS EN LA BD
                 var user = await applicationDbContext.pt_users.SingleOrDefaultAsync(user => user.email == request.email);
 
                 if (user == null)
                 {
-
-                    return NotFound();
+                    response.mensaje = "Usuario no encontrado";
+                    response.token = "";
+                    return Ok(response);
                 }
 
                 if(user.password != request.password)
                 {
-                    return NotFound();
+                    response.mensaje = "Clave incorrecta";
+                    response.token = "";
+                    return Ok(response);
                 }
 
                 //EN CASO DE ENCONTRAR AL USAURIO SE PROCEDE A AUTENTICAR
@@ -58,7 +68,7 @@ namespace api_perfiltic.Controllers
             catch (Exception ex)
             {
                 string error = ex.Message.ToString();
-                return NotFound();
+                return StatusCode(500, error);
             }
         } 
 

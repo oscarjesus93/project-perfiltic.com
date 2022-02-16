@@ -12,6 +12,7 @@ namespace api_perfiltic.Utilities
     {
         public AutoMapperProfiles()
         {
+
             CreateMap<Category, CategoryRequest>()
                 .ReverseMap();
 
@@ -45,6 +46,12 @@ namespace api_perfiltic.Utilities
                 .ReverseMap();
 
             CreateMap<Product, ProductResponse>()
+                .ReverseMap();
+
+            CreateMap<User, UserRequest>()
+                .ReverseMap();
+
+            CreateMap<UserRequest, User>()
                 .ReverseMap();
         }
     }
