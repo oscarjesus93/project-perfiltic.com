@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/api-perfiltic",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:37114",
       "sslPort": 0

@@ -51,34 +51,31 @@ namespace api_perfiltic.Controllers
                 }
 
                 var user = mapper.Map<User>(userRequest);
-                if (ModelState.IsValid)
+                var userSearch = await applicationDbContext.pt_users.Where(u => u.email == userRequest.email).FirstOrDefaultAsync();
+
+                if (userSearch != null)
                 {
-                    var userSearch = await applicationDbContext.pt_users.Where(u => u.email == userRequest.email).FirstOrDefaultAsync();
-
-                    if(userSearch != null)
-                    {                      
-                        if(userSearch.email == userRequest.email)
-                        {
-                            userResponse.message = "El usuario que intenta crear ya esta creado";
-                            return Ok(userResponse);
-                        }
-                    }
-
-                    applicationDbContext.pt_users.Add(user);
-                    await applicationDbContext.SaveChangesAsync();
-
-                    var userSave = await applicationDbContext.pt_users.OrderByDescending(o => o.id_user).Take(1).FirstOrDefaultAsync();
-
-                    if (userSave != null)
+                    if (userSearch.email == userRequest.email)
                     {
-                        userResponse.message = "Registro completado";
-                    }
-                    else
-                    {
-                        userResponse.message = "Ah ocurrido un error al guardar los datos";
+                        userResponse.message = "El usuario que intenta crear ya esta creado";
                         return Ok(userResponse);
                     }
-                }               
+                }
+
+                applicationDbContext.pt_users.Add(user);
+                await applicationDbContext.SaveChangesAsync();
+
+                var userSave = await applicationDbContext.pt_users.OrderByDescending(o => o.id_user).Take(1).FirstOrDefaultAsync();
+
+                if (userSave != null)
+                {
+                    userResponse.message = "Registro completado";
+                }
+                else
+                {
+                    userResponse.message = "Ah ocurrido un error al guardar los datos";
+                    return Ok(userResponse);
+                }
 
 
                 return userResponse;

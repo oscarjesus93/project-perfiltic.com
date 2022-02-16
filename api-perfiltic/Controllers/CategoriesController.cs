@@ -14,8 +14,7 @@ using api_perfiltic.Models;
 namespace api_perfiltic.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    [Authorize]
+    [Route("api/[controller]")]    
     public class CategoriesController : ControllerBase
     {
 
@@ -29,46 +28,128 @@ namespace api_perfiltic.Controllers
 
         [HttpGet]
         //[Route("api/categories/get")]
-        public async Task<ActionResult<List<Entities.Category>>> Get()
+        //public async Task<ActionResult<List<Entities.Category>>> Get()
+        //{
+        //    return await applicationDbContext.pt_category.ToListAsync();
+        //}
+
+        public async Task<ActionResult<List<CategoryResponse>>> Get()
         {
-            return await applicationDbContext.pt_category.ToListAsync();
+
+            try
+            {
+                List<CategoryResponse> categoryResponses = new List<CategoryResponse>();
+                var listCategories = await applicationDbContext.pt_category.ToListAsync();
+
+                categoryResponses = mapper.Map<List<CategoryResponse>>(listCategories);
+
+                if(categoryResponses.Count == 0)
+                {
+                    return NotFound(new { message = "No tiene categorias registradas" });
+                } else
+                {
+                    return Ok(categoryResponses);
+                }                
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message.ToString());
+                throw;
+            }
         }
 
         [HttpGet("{id}")]
         //[Route("api/GetId")]
-        public async Task<ActionResult<Entities.Category>> GetId(int id)
+        public async Task<ActionResult<CategoryResponse>> GetId(int id)
         {
-            return await applicationDbContext.pt_category.FirstOrDefaultAsync(c => c.id_category == id);
+            CategoryResponse categoryResponse = new CategoryResponse();
+            try
+            {
+                var category = await applicationDbContext.pt_category.FirstOrDefaultAsync(c => c.id_category == id);
+
+                categoryResponse = mapper.Map<CategoryResponse>(category);
+
+                if(categoryResponse == null)
+                {
+
+                    return NotFound(new { message = "Categoria no registrada" });
+
+                } else
+                {
+                    return Ok(categoryResponse);
+                }
+            
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message.ToString());
+                throw;
+            }
         }
 
         [HttpPost]
         //[Route("api/category/save")]
-        public async Task<ActionResult<Entities.Category>> Post(CategoryRequest request)
+        public async Task<ActionResult<CategoryResponse>> Post(CategoryRequest request)
         {
-            var category = mapper.Map<Entities.Category>(request);
-            applicationDbContext.Add(category);
-            await applicationDbContext.SaveChangesAsync();
 
-            return category;
+            try
+            {
+                if(request.name == "")
+                {
+                    return Ok(new { message = "El nombre es obligatorio" });
+                }
+
+
+                CategoryResponse categoryResponse = new CategoryResponse();
+                var category = mapper.Map<Category>(request);
+                applicationDbContext.Add(category);
+                var categorySave = await applicationDbContext.SaveChangesAsync();
+
+                categoryResponse = mapper.Map<CategoryResponse>(categorySave);
+
+                return categoryResponse;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message.ToString());
+                throw;
+            }
         }
 
         [HttpPut("{id}")]
-        public async Task< ActionResult<Entities.Category> > Put(int id, [FromBody] CategoryRequest request)
+        public async Task< ActionResult<CategoryResponse> > Put(int id, [FromBody] CategoryRequest request)
         {
-            var category = await applicationDbContext.pt_category.FirstOrDefaultAsync(c => c.id_category == id);
-            
-            if(category == null)
+            try
             {
-                return NotFound();
+                CategoryResponse categoryResponse = new CategoryResponse();
+
+                if (request.name == "")
+                {
+                    return Ok(new { message = "El nombre es obligatorio" });
+                }
+
+                var category = await applicationDbContext.pt_category.FirstOrDefaultAsync(c => c.id_category == id);
+
+                if (category == null)
+                {
+                    return NotFound(new { message = "Categoria no encontrada" });
+                }
+
+                mapper.Map(request, category);
+                applicationDbContext.Entry(category).State = EntityState.Modified;
+                await applicationDbContext.SaveChangesAsync();
+
+                var categoryUpdate = await applicationDbContext.pt_category.FirstOrDefaultAsync(c => c.id_category == id);
+                categoryResponse = mapper.Map<CategoryResponse>(categoryUpdate);
+
+                return categoryResponse;
             }
-
-            mapper.Map(request, category);
-
-            applicationDbContext.Entry(category).State = EntityState.Modified;
-
-            await applicationDbContext.SaveChangesAsync();
-
-            return category;
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message.ToString());
+                throw;
+            }
         }
         
     }
