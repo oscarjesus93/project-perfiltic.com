@@ -46,6 +46,12 @@ namespace api_perfiltic.Utilities
 
             CreateMap<Product, ProductResponse>()
                 .ReverseMap();
+
+            CreateMap<User, UserRequest>()
+                .ReverseMap();
+
+            CreateMap<UserRequest, User>()
+                .ReverseMap();
         }
     }
 }
